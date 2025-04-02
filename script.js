@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // OpenRouter API key
-    const OPENROUTER_API_KEY = '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';
+    const OPENROUTER_API_KEY = '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';
     
     // DOM Elements
     const messagesContainer = document.getElementById('messages');
