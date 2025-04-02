@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MKCEGPT</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="chat-app">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <h2><i class="fas fa-robot"></i> MKCEGPT</h2>
+                    <button id="new-chat" class="new-chat-btn">
+                        <i class="fas fa-plus"></i> New Chat
+                    </button>
+                </div>
+                <div class="history">
+                    <!-- Chat history will appear here -->
+                </div>
+                <div class="sidebar-footer">
+                    <p>Using OpenRouter API</p>
+                    <p class="model-info">Model: <span id="current-model">Mistral 7B</span></p>
+                </div>
+            </div>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h3><i class="fas fa-comment-dots"></i> AI Assistant</h3>
+                    <div class="model-selector">
+                        <select id="model-select">
+                            <option value="mistral">Mistral 7B</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="messages" id="messages">
+                    <div class="message ai-message welcome-message">
+                        <div class="message-content">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-text">
+                                <p>Hello! I'm your AI assistant. How can I help you today?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-area">
+                    <div class="input-container">
+                        <textarea id="user-input" placeholder="Type your message here..."></textarea>
+                        <button id="send-btn" class="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="features">
+                        <button class="feature-btn" title="Clear Chat">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        <button class="feature-btn" title="Toggle Theme">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
