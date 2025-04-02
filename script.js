@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error getting response:', error);
             hideTypingIndicator();
-            addMessageToChat('ai', 'Sorry, I encountered an error. Please try again.');
+            addMessageToChat('ai', 'Sorry, I encountered an error. Please try again. If this persists, it may be a CORS issue or API limit - check the console for details.');
         }
         
         // Save chat to localStorage
@@ -198,6 +198,13 @@ document.addEventListener('DOMContentLoaded', () => {
             content: msg.content
         }));
         
+        // Debug info
+        console.log('Sending request to model:', model);
+        console.log('Current URL:', window.location.href);
+        
+        // Get referrer - Using a fixed referrer for GitHub Pages deployments
+        const referrer = 'https://sardheesh-9230.github.io/AI-chatbot/';
+        
         // Make API request
         try {
             const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -205,24 +212,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + OPENROUTER_API_KEY,
-                    'HTTP-Referer': window.location.href, // Required by OpenRouter
-                    'X-Title': 'MKCEGPT' // Optional title
+                    'HTTP-Referer': referrer, // Using fixed referrer
+                    'X-Title': 'MKCEGPT', // Optional title
+                    'Origin': 'https://sardheesh-9230.github.io' // Add explicit origin
                 },
                 body: JSON.stringify({
                     model: model,
                     messages: messages,
                     temperature: 0.7,
-                    max_tokens: 1000
+                    max_tokens: 1000,
+                    route: 'fallback' // Added to improve routing
                 })
             });
             
             if (!response.ok) {
                 const errorText = await response.text();
                 console.error('API Error:', errorText);
-                throw new Error('API Error: ' + response.status);
+                throw new Error('API Error: ' + response.status + ' - ' + errorText);
             }
             
             const data = await response.json();
+            console.log('API Response:', data);
             return data.choices[0].message.content;
         } catch (error) {
             console.error('Error calling OpenRouter API:', error);
